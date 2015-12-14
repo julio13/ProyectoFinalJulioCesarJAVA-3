@@ -31,7 +31,7 @@ public class ControladorCliente {
         c.setPaterno(paterno);
         DAOCliente d=new DAOCliente();
         d.guardar(c);
-      
+      return "registro guardado";
     }
     //Bloque del metodo respuesta clientes que no estan en el dominio.
     @CrossOrigin
@@ -43,6 +43,30 @@ public class ControladorCliente {
     ObjectMapper mapper=new ObjectMapper();
     return mapper.writeValueAsString(clientes);
     }
-    
+    //Buscar por ID
+    @CrossOrigin
+    @RequestMapping(value ="/cliente/{id}", method=RequestMethod.GET,
+            headers = {"Accept=application/json"})
+    @ResponseBody String buscarPorId (@PathVariable Integer id)throws Exception{
+        DAOCliente d=new DAOCliente();
+        
+        Cliente c=d.buscarPorId(id);
+        ObjectMapper mapper=new ObjectMapper();
+        return mapper.writeValueAsString(c);
+        
+    }
+    //Actualizar
+    @CrossOrigin
+    @RequestMapping(value="/cliente/{nombre}/{email}/{paterno}", method=RequestMethod.PUT, headers={"Accept=text/html"})
+    @ResponseBody String actualizar(@PathVariable String nombre, @PathVariable String email, @PathVariable String paterno )throws Exception{
+        
+        Cliente c=new Cliente();
+        c.setEmail(email);
+        c.setNombre(nombre);
+        c.setPaterno(paterno);
+        DAOCliente d=new DAOCliente();
+        d.actualizar(c);
+        return "Registro guardado";
+    }
     
 }

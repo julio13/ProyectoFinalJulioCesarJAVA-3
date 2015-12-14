@@ -49,5 +49,17 @@ public class DAOCliente {
          
          return c;
     }
+    //Buscar por ID
+    public Cliente buscarPorId(Integer id)throws Exception{
+    Cliente c=(Cliente)session.createCriteria(Cliente.class).add(Restrictions.idEq(id)).uniqueResult();
+            return c;
+    }
     
+   
+    
+    public void borrar(Integer id)throws Exception{
+    Cliente c=new Cliente();
+    c.setIdCliente(id);
+    session.delete(c);
+    }
 }   
